@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="rootPane" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerViewController">
+   <children>
+      <SplitPane dividerPositions="0.748995983935743" orientation="VERTICAL" prefHeight="500.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="382.0" prefWidth="598.0" style="-fx-background-color: #FFFFFF;">
+               <children>
+                  <Pane layoutX="223.0" layoutY="15.0" prefHeight="185.0" prefWidth="361.0" style="-fx-background-color: #FFFFFF;">
+                     <children>
+                        <JFXTextField fx:id="fNameTF" layoutX="14.0" layoutY="55.0" prefHeight="25.0" prefWidth="155.0" promptText="First Name" />
+                        <JFXTextField fx:id="lNameTF" layoutX="189.0" layoutY="55.0" prefHeight="25.0" prefWidth="155.0" promptText="Last Name" />
+                        <JFXTextField fx:id="emailTF" layoutX="17.0" layoutY="149.0" prefHeight="25.0" prefWidth="130.0" promptText="Email" />
+                        <JFXTextField fx:id="addressTF" layoutX="17.0" layoutY="87.0" prefHeight="25.0" prefWidth="259.0" promptText="Street Address" />
+                        <JFXTextField fx:id="aptTF" layoutX="292.0" layoutY="87.0" prefHeight="25.0" prefWidth="53.0" promptText="APT." />
+                        <JFXTextField fx:id="cityTF" layoutX="16.0" layoutY="118.0" prefHeight="25.0" prefWidth="155.0" promptText="City" />
+                        <JFXTextField fx:id="stateTF" layoutX="191.0" layoutY="118.0" prefHeight="25.0" prefWidth="46.0" promptText="State" />
+                        <JFXTextField fx:id="zipTF" layoutX="250.0" layoutY="118.0" prefHeight="25.0" prefWidth="96.0" promptText="Zip Code" />
+                        <JFXTextField fx:id="phoneNumTF" layoutX="171.0" layoutY="149.0" prefHeight="25.0" prefWidth="176.0" promptText="Phone Number" />
+                        <Label layoutX="17.0" layoutY="14.0" prefHeight="17.0" prefWidth="176.0" text="Personal Information:" underline="true">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Pane>
+                  <Pane layoutX="223.0" layoutY="207.0" prefHeight="153.0" prefWidth="361.0" style="-fx-background-color: #FFFFFF;">
+                     <children>
+                        <JFXTextField fx:id="NOCardTF" layoutX="18.0" layoutY="43.0" prefHeight="25.0" prefWidth="238.0" promptText="Name on Card" />
+                        <JFXTextField fx:id="typeTF" layoutX="275.0" layoutY="43.0" prefHeight="25.0" prefWidth="68.0" promptText="Card Type" />
+                        <JFXTextField fx:id="ccNumTF" layoutX="18.0" layoutY="79.0" prefHeight="25.0" prefWidth="326.0" promptText="Credit Card Number" />
+                        <JFXTextField fx:id="expTF" layoutX="18.0" layoutY="114.0" prefHeight="25.0" prefWidth="102.0" promptText="Expiration Date" />
+                        <JFXTextField fx:id="securityTF" layoutX="134.0" layoutY="114.0" prefHeight="25.0" prefWidth="89.0" promptText="Security Code" />
+                        <Label layoutX="14.0" layoutY="14.0" prefHeight="20.0" prefWidth="207.0" text="Credit Card Information:" underline="true">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Pane>
+                  <Pane layoutX="14.0" layoutY="127.0" prefHeight="229.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;">
+                     <children>
+                        <JFXButton fx:id="btnCreateCustomer" buttonType="RAISED" onAction="#btnCreateCustomerClicked" prefHeight="57.0" prefWidth="200.0" style="-fx-border-color: #C0C0C0;" text="Create New Customer" />
+                        <JFXButton layoutY="57.0" prefHeight="57.0" prefWidth="200.0" style="-fx-border-color: #C0C0C0;" text="Search/Edit Customer" />
+                        <JFXButton fx:id="btnBack" layoutY="115.0" onAction="#btnBackClicked" prefHeight="57.0" prefWidth="200.0" style="-fx-border-color: #C0C0C0;" text="Back" />
+                        <JFXButton layoutY="172.0" prefHeight="57.0" prefWidth="200.0" style="-fx-border-color: #C0C0C0;" text="Exit" />
+                     </children>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Pane>
+                  <Pane layoutX="14.0" layoutY="14.0" prefHeight="99.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;">
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <children>
+                        <Label contentDisplay="CENTER" layoutX="1.0" layoutY="-4.0" prefHeight="105.0" prefWidth="200.0" text="Customer Menu" textAlignment="CENTER" wrapText="true">
+                           <font>
+                              <Font size="35.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="90.0" prefWidth="598.0">
+               <children>
+                  <JFXTextArea fx:id="displayTF" prefHeight="121.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
