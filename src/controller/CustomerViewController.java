@@ -13,11 +13,23 @@ package controller;
 	import javafx.fxml.FXMLLoader;
 	import javafx.fxml.Initializable;
 	import javafx.scene.layout.AnchorPane;
+	import javafx.beans.property.SimpleStringProperty;
+	import javafx.scene.control.TableColumn;
+	import javafx.scene.control.TableView;
+	import javafx.scene.control.cell.PropertyValueFactory;
+	import javafx.collections.FXCollections;
+	import javafx.collections.ObservableList;
+	import java.util.logging.Level;
+	import java.util.logging.Logger;
+	import application.DatabaseHandler;
 
-	import javax.swing.table.TableColumn;
+
 	import java.sql.*;
 
-public class CustomerViewController implements Initializable {
+public class CustomerViewController implements Initializable
+{
+
+		ObservableList<Customer> list = FXCollections.observableArrayList();
 
 		// The information for the Credit Card of the Customers
 
@@ -81,23 +93,65 @@ public class CustomerViewController implements Initializable {
 		AnchorPane rootPane;
 
 		@FXML
+		TableView <Customer> customerTable;
+
+		@FXML
+		TableColumn<Customer, String> customerID;
+
+		@FXML
+		TableColumn<Customer, String> firstName;
+
+		@FXML
+		TableColumn<Customer, String> lastName;
+
+		@FXML
+		TableColumn<Customer, String> email;
+
+		@FXML
+		TableColumn<Customer, String> phoneNumber;
+
+		@FXML
+		TableColumn<Customer, String> streetAddress;
+
+		@FXML
+		TableColumn<Customer, String> apartment;
+
+		@FXML
+		TableColumn<Customer, String> city;
+
+		@FXML
+		TableColumn<Customer, String> state;
+
+		@FXML
+		TableColumn<Customer, String> zipCode;
+
+
+
+
+
+
+
+	@FXML
 		private JFXButton btnBack;
 
 		@FXML
 		private JFXTextArea displayTF;
 
 	@FXML
-	void btnBackClicked(ActionEvent event) throws IOException {
+	void btnBackClicked(ActionEvent event) throws IOException
+	{
 		returnToMainMenu(event);
 	}
 	
 	@FXML 
-	public void returnToMainMenu(ActionEvent event) throws IOException{
+	public void returnToMainMenu(ActionEvent event) throws IOException
+	{
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("/view/MainView.fxml"));
 		rootPane.getChildren().setAll(pane);
 	}
 	
-	public void btnCreateCustomerClicked(ActionEvent event) throws SQLException, ClassNotFoundException{
+	public void btnCreateCustomerClicked(ActionEvent event) throws SQLException, ClassNotFoundException
+	{
 		Connection conn = null;
 		Class.forName("com.mysql.jdbc.Driver");
 		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys", "root", "password");
@@ -156,10 +210,130 @@ public class CustomerViewController implements Initializable {
 
 	}
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+	public void initColumn()
+	{
+
+		customerID.setCellValueFactory(new PropertyValueFactory("Customer_ID"));
+		firstName.setCellValueFactory(new PropertyValueFactory("First_Name"));
+		lastName.setCellValueFactory(new PropertyValueFactory("Last_Name"));
+		streetAddress.setCellValueFactory(new PropertyValueFactory("Street_Address"));
+		apartment.setCellValueFactory(new PropertyValueFactory("APT"));
+		city.setCellValueFactory(new PropertyValueFactory("City"));
+		zipCode.setCellValueFactory(new PropertyValueFactory("Zip_Code"));
+		email.setCellValueFactory(new PropertyValueFactory("Email"));
+		state.setCellValueFactory(new PropertyValueFactory("State"));
+		phoneNumber.setCellValueFactory(new PropertyValueFactory("Phone_Number"));
 
 	}
+
+	private void loadData()
+	{
+		DatabaseHandler handler = DatabaseHandler.getInstance();
+		String qu = "SELECT * FROM CUSTOMER_INFORMATION";
+		ResultSet rs = handler.execQuery(qu);
+
+		try {
+			while (rs.next()) {
+				String id = rs.getString("CUSTOMER_ID");
+				String firstName = rs.getString("FIRST_NAME");
+				String lastName = rs.getString("LAST_NAME");
+				String email = rs.getString("EMAIL");
+				String phoneNumber = rs.getString("PHONE_NUMBER");
+				String streetAddress = rs.getString("STREET_ADDRESS");
+				String APT = rs.getString("APARTMENT");
+				String city = rs.getString("CITY");
+				String state = rs.getString("STATE");
+				String zipCode = rs.getString("ZIP_CODE");
+
+				list.add(new Customer(id, firstName, lastName, email, phoneNumber, streetAddress, APT, city, state, zipCode));
+
+			}
+		} catch (SQLException ex) {
+			Logger.getLogger(CustomerViewController.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+		customerTable.getItems().setAll(list);
+
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources)
+	{
+		initColumn();
+		loadData();
+	}
+
+	public static class Customer
+	{
+		private final SimpleStringProperty Customer_ID;
+		private final SimpleStringProperty First_Name;
+		private final SimpleStringProperty Last_Name;
+		private final SimpleStringProperty Street_Address;
+		private final SimpleStringProperty APT;
+		private final SimpleStringProperty City;
+		private final SimpleStringProperty Zip_Code;
+		private final SimpleStringProperty Email;
+		private final SimpleStringProperty State;
+		private final SimpleStringProperty Phone_Number;
+
+		public Customer(String id, String firstName, String lastName, String email, String phoneNumber, String streetAddress, String APT, String city, String state, String zipCode)
+		{
+			this.Customer_ID = new SimpleStringProperty(id);
+			this.First_Name = new SimpleStringProperty(firstName);
+			this.Last_Name = new SimpleStringProperty(lastName);
+			this.Street_Address = new SimpleStringProperty(streetAddress);
+			this.APT = new SimpleStringProperty(APT);
+			this.City = new SimpleStringProperty(city);
+			this.Zip_Code = new SimpleStringProperty(zipCode);
+			this.Email = new SimpleStringProperty(email);
+			this.State = new SimpleStringProperty(state);
+			this.Phone_Number = new SimpleStringProperty(phoneNumber);
+		}
+
+
+		public String getCustomer_ID() {
+			return Customer_ID.get();
+		}
+
+		public String getFirst_Name() {
+			return First_Name.get();
+		}
+
+		public String getLast_Name() {
+			return Last_Name.get();
+		}
+
+		public String getStreet_Address() {
+			return Street_Address.get();
+		}
+
+		public String getAPT() {
+			return APT.get();
+		}
+
+		public String getCity() {
+			return City.get();
+		}
+
+		public String getZip_Code() {
+			return Zip_Code.get();
+		}
+
+		public String getEmail() {
+			return Email.get();
+		}
+
+		public String getState(){
+			return State.get();
+		}
+
+		public String getPhone_Number() {
+			return Phone_Number.get();
+		}
+
+
+	}
+
 }
 
 
