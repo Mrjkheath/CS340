@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerViewController">
+   <children>
+      <SplitPane dividerPositions="0.748995983935743" orientation="VERTICAL" prefHeight="500.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="382.0" prefWidth="598.0" style="-fx-background-color: #FFFFFF;">
+               <children>
+                  <Pane layoutX="223.0" layoutY="15.0" prefHeight="185.0" prefWidth="543.0" style="-fx-background-color: #FFFFFF;">
+                     <children>
+                        <JFXTextField fx:id="cusIDTF" layoutX="16.0" layoutY="45.0" prefHeight="23.0" prefWidth="96.0" promptText="Customer ID" text="00010" />
+                        <JFXTextField fx:id="fNameTF" layoutX="127.0" layoutY="43.0" prefHeight="25.0" prefWidth="200.0" promptText="First Name" text="John" />
+                        <JFXTextField fx:id="lNameTF" layoutX="345.0" layoutY="43.0" prefHeight="25.0" prefWidth="176.0" promptText="Last Name" text="Doe" />
+                        <JFXTextField fx:id="addressTF" layoutX="17.0" layoutY="78.0" prefHeight="25.0" prefWidth="259.0" promptText="Street Address" text="8574 Ocean Blvd." />
+                        <JFXTextField fx:id="aptTF" layoutX="288.0" layoutY="78.0" prefHeight="25.0" prefWidth="53.0" promptText="APT." text="00" />
+                        <JFXTextField fx:id="cityTF" layoutX="357.0" layoutY="79.0" prefHeight="25.0" prefWidth="164.0" promptText="City" text="Oakland" />
+                        <JFXTextField fx:id="stateTF" layoutX="17.0" layoutY="114.0" prefHeight="25.0" prefWidth="46.0" promptText="State" text="CA" />
+                        <JFXTextField fx:id="zipTF" layoutX="82.0" layoutY="114.0" prefHeight="25.0" prefWidth="96.0" promptText="Zip Code" text="90210" />
+                        <JFXTextField fx:id="emailTF" layoutX="187.0" layoutY="114.0" prefHeight="25.0" prefWidth="334.0" promptText="Email" text="john.doe@gmail.com" />
+                        <JFXTextField fx:id="phoneNumTF" layoutX="15.0" layoutY="149.0" prefHeight="25.0" prefWidth="164.0" promptText="Phone Number" text="19575552674" />
+                        <Label layoutX="17.0" layoutY="14.0" prefHeight="17.0" prefWidth="176.0" text="Personal Information:" underline="true">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Pane>
+                  <Pane layoutX="223.0" layoutY="207.0" prefHeight="153.0" prefWidth="543.0" style="-fx-background-color: #FFFFFF;">
+                     <children>
+                        <JFXTextField fx:id="cusCCIDTF" layoutX="19.0" layoutY="47.0" prefHeight="23.0" prefWidth="86.0" promptText="Customer ID" text="00010" />
+                        <JFXTextField fx:id="NOCardTF" layoutX="118.0" layoutY="43.0" prefHeight="25.0" prefWidth="259.0" promptText="Name on Card" text="John H. Doe" />
+                        <JFXTextField fx:id="typeTF" layoutX="390.0" layoutY="43.0" prefHeight="25.0" prefWidth="96.0" promptText="Card Type" text="Visa" />
+                        <JFXTextField fx:id="ccNumTF" layoutX="18.0" layoutY="79.0" prefHeight="25.0" prefWidth="326.0" promptText="Credit Card Number" text="4485440356798541" />
+                        <JFXTextField fx:id="expTF" layoutX="357.0" layoutY="79.0" prefHeight="25.0" prefWidth="68.0" promptText="Exp. Date" text="05/21" />
+                        <JFXTextField fx:id="securityTF" layoutX="440.0" layoutY="80.0" prefHeight="25.0" prefWidth="46.0" promptText="CVV " text="467" />
+                        <Label layoutX="14.0" layoutY="13.0" prefHeight="20.0" prefWidth="207.0" text="Credit Card Information:" underline="true">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Pane>
+                  <Pane layoutX="14.0" layoutY="127.0" prefHeight="229.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;">
+                     <children>
+                        <JFXButton fx:id="btnCreateCustomer" buttonType="RAISED" onAction="#btnCreateCustomerClicked" prefHeight="57.0" prefWidth="200.0" style="-fx-border-color: #C0C0C0;" text="Create New Customer" />
+                        <JFXButton layoutY="57.0" prefHeight="57.0" prefWidth="200.0" style="-fx-border-color: #C0C0C0;" text="Search/Edit Customer" />
+                        <JFXButton fx:id="btnBack" layoutY="115.0" onAction="#btnBackClicked" prefHeight="57.0" prefWidth="200.0" style="-fx-border-color: #C0C0C0;" text="Back" />
+                        <JFXButton layoutY="172.0" prefHeight="57.0" prefWidth="200.0" style="-fx-border-color: #C0C0C0;" text="Exit" />
+                     </children>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Pane>
+                  <Pane layoutX="14.0" layoutY="14.0" prefHeight="99.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;">
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <children>
+                        <Label contentDisplay="CENTER" layoutX="1.0" layoutY="-4.0" prefHeight="105.0" prefWidth="200.0" text="Customer Menu" textAlignment="CENTER" wrapText="true">
+                           <font>
+                              <Font size="35.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <TableView layoutX="11.0" layoutY="368.0" prefHeight="210.0" prefWidth="756.0">
+                    <columns>
+                        <TableColumn prefWidth="75.0" text="Cust. ID" />
+                      <TableColumn prefWidth="75.0" text="First Name" />
+                      <TableColumn prefWidth="75.0" text="Last Name" />
+                        <TableColumn prefWidth="75.0" text="Street Address" />
+                        <TableColumn prefWidth="75.0" text="APT" />
+                        <TableColumn prefWidth="75.0" text="City" />
+                        <TableColumn prefWidth="75.0" text="State" />
+                        <TableColumn prefWidth="75.0" text="Zip Code" />
+                        <TableColumn prefWidth="82.0" text="Email" />
+                        <TableColumn prefWidth="73.0" text="Phone Number" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="90.0" prefWidth="598.0" />
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
