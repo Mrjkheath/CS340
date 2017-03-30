@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InventoryViewController">
+   <children>
+      <Pane layoutX="392.0" layoutY="43.0" prefHeight="234.0" prefWidth="569.0" style="-fx-background-color: #FFFFFF;" AnchorPane.leftAnchor="392.0" AnchorPane.rightAnchor="319.0">
+         <effect>
+            <DropShadow />
+         </effect>
+         <children>
+            <JFXTextField fx:id="titleTF" layoutX="14.0" layoutY="29.0" promptText="Title" />
+            <JFXTextField fx:id="directorTF" layoutX="14.0" layoutY="67.0" promptText="Director" />
+            <JFXTextField fx:id="genreTF" layoutX="14.0" layoutY="105.0" promptText="Genre" />
+            <JFXTextField fx:id="mActorTF" layoutX="193.0" layoutY="29.0" promptText="Main Actor" />
+            <JFXTextField fx:id="sActorTF" layoutX="193.0" layoutY="67.0" promptText="Supporting Actor" />
+            <JFXTextField fx:id="relaseYearTF" layoutX="193.0" layoutY="105.0" promptText="Release Year" />
+            <JFXTextField fx:id="totalQuantTF" layoutX="382.0" layoutY="29.0" promptText="Total Quantity" />
+            <JFXTextField fx:id="quantOnHandTF" layoutX="382.0" layoutY="67.0" promptText="Quantity On Hand" />
+            <JFXButton fx:id="btnSearch" buttonType="RAISED" layoutX="60.0" layoutY="165.0" onAction="#btnSearchClicked" style="-fx-border-color: C0C0C0;" text="Search" />
+            <JFXButton fx:id="btnEdit" layoutX="142.0" layoutY="165.0" onAction="#btnEditclicked" style="-fx-border-color: C0C0C0;" text="Edit" />
+            <JFXButton fx:id="btnDelete" layoutX="297.0" layoutY="165.0" onAction="#btnDeleteClicked" style="-fx-border-color: C0C0C0;" text="Delete" />
+            <JFXButton fx:id="btnBack" layoutX="382.0" layoutY="165.0" onAction="#btnBackclicked" style="-fx-border-color: C0C0C0;" text="Back" />
+            <JFXButton fx:id="btnExit" layoutX="457.0" layoutY="165.0" onAction="#btnExitclicked" style="-fx-border-color: C0C0C0;" text="Exit" />
+            <JFXButton fx:id="btnAdd" layoutX="218.0" layoutY="165.0" onAction="#btnAddclicked" style="-fx-border-color: C0C0C0;" text="Add" />
+         </children>
+      </Pane>
+      <TableView layoutY="320.0" prefHeight="481.0" prefWidth="1280.0">
+        <columns>
+          <TableColumn prefWidth="312.0" text="Title" />
+          <TableColumn prefWidth="112.0" text="Release Year" />
+            <TableColumn prefWidth="123.0" text="Genre" />
+            <TableColumn prefWidth="165.0" text="Director" />
+            <TableColumn prefWidth="144.0" text="Main Actor" />
+            <TableColumn prefWidth="147.0" text="Supporing Actor" />
+            <TableColumn minWidth="0.0" prefWidth="139.0" text="On Hand" />
+            <TableColumn prefWidth="137.0" text="Total Quantity" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
