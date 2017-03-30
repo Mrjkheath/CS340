@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="rootPane" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainViewController">
+   <children>
+      <ImageView fitHeight="500.0" fitWidth="600.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
+      <JFXButton fx:id="btnCustomer" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="225.0" layoutY="199.0" lineSpacing="10.0" onAction="#btnCustomerClicked" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #f1f1f1;" text="CUSTOMERS" />
+      <JFXButton fx:id="btnRentals" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="225.0" layoutY="253.0" lineSpacing="10.0" onAction="#btnRentalsClicked" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #f1f1f1;" text="RENTALS" />
+      <JFXButton fx:id="btnInventory" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="225.0" layoutY="307.0" lineSpacing="10.0" onAction="#btnInventoryClicked" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #f1f1f1;" text="INVENTORY" />
+      <JFXButton fx:id="btnManagement" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="225.0" layoutY="363.0" lineSpacing="10.0" onAction="#btnManagement" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #f1f1f1;" text="MANAGEMENT" />
+      <JFXButton fx:id="btnExit" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="225.0" layoutY="421.0" lineSpacing="10.0" onAction="#btnExitClicked" prefHeight="35.0" prefWidth="150.0" snapToPixel="false" style="-fx-background-color: #f1f1f1;" text="EXIT" />
+   </children>
+</AnchorPane>
