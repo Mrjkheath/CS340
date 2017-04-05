@@ -84,9 +84,6 @@ public class CustomerViewController implements Initializable
 	    private JFXTextField aptTF;
 
 		@FXML
-		private TableColumn FirstName;
-
-		@FXML
 		private JFXButton btnCreateCustomer;
 
 		@FXML
@@ -125,12 +122,6 @@ public class CustomerViewController implements Initializable
 		@FXML
 		TableColumn<Customer, String> zipCode;
 
-
-
-
-
-
-
 	@FXML
 		private JFXButton btnBack;
 
@@ -160,13 +151,13 @@ public class CustomerViewController implements Initializable
 		String cusID = cusIDTF.getText();
 		String fName = fNameTF.getText();
 		String lName = lNameTF.getText();
+		String email = emailTF.getText();
+		String phoneNum = phoneNumTF.getText();
 		String address = addressTF.getText();
 		String apartmentNum = aptTF.getText();
 		String city = cityTF.getText();
 		String state = stateTF.getText();
 		String zipCode = zipTF.getText();
-		String email = emailTF.getText();
-		String phoneNum = phoneNumTF.getText();
 
 
 		PreparedStatement statement = conn.prepareStatement("INSERT INTO CUSTOMER_INFORMATION VALUES (?,?,?,?,?,?,?,?,?,?)");
@@ -174,13 +165,13 @@ public class CustomerViewController implements Initializable
 		statement.setString(1, cusID);
 		statement.setString(2, fName);
 		statement.setString(3, lName);
-		statement.setString(4, address);
-		statement.setString(5, apartmentNum);
-		statement.setString(6, city);
-		statement.setString(7, state);
-		statement.setString(8, zipCode);
-		statement.setString(9, email);
-		statement.setString(10, phoneNum);
+		statement.setString(4, email);
+		statement.setString(5, phoneNum);
+		statement.setString(6, address);
+		statement.setString(7, apartmentNum);
+		statement.setString(8, city);
+		statement.setString(9, state);
+		statement.setString(10, zipCode);
 
 		statement.executeUpdate();
 
@@ -208,6 +199,8 @@ public class CustomerViewController implements Initializable
 
 		System.out.println("Customer has been added!");
 
+		loadData();
+
 	}
 
 	public void initColumn()
@@ -216,13 +209,15 @@ public class CustomerViewController implements Initializable
 		customerID.setCellValueFactory(new PropertyValueFactory("Customer_ID"));
 		firstName.setCellValueFactory(new PropertyValueFactory("First_Name"));
 		lastName.setCellValueFactory(new PropertyValueFactory("Last_Name"));
+		email.setCellValueFactory(new PropertyValueFactory("Email"));
+		phoneNumber.setCellValueFactory(new PropertyValueFactory("Phone_Number"));
 		streetAddress.setCellValueFactory(new PropertyValueFactory("Street_Address"));
 		apartment.setCellValueFactory(new PropertyValueFactory("APT"));
 		city.setCellValueFactory(new PropertyValueFactory("City"));
-		zipCode.setCellValueFactory(new PropertyValueFactory("Zip_Code"));
-		email.setCellValueFactory(new PropertyValueFactory("Email"));
 		state.setCellValueFactory(new PropertyValueFactory("State"));
-		phoneNumber.setCellValueFactory(new PropertyValueFactory("Phone_Number"));
+		zipCode.setCellValueFactory(new PropertyValueFactory("Zip_Code"));
+
+
 
 	}
 
@@ -231,6 +226,7 @@ public class CustomerViewController implements Initializable
 		DatabaseHandler handler = DatabaseHandler.getInstance();
 		String qu = "SELECT * FROM CUSTOMER_INFORMATION";
 		ResultSet rs = handler.execQuery(qu);
+		list.clear();
 
 		try {
 			while (rs.next()) {
@@ -268,26 +264,26 @@ public class CustomerViewController implements Initializable
 		private final SimpleStringProperty Customer_ID;
 		private final SimpleStringProperty First_Name;
 		private final SimpleStringProperty Last_Name;
+		private final SimpleStringProperty Email;
+		private final SimpleStringProperty Phone_Number;
 		private final SimpleStringProperty Street_Address;
 		private final SimpleStringProperty APT;
 		private final SimpleStringProperty City;
-		private final SimpleStringProperty Zip_Code;
-		private final SimpleStringProperty Email;
 		private final SimpleStringProperty State;
-		private final SimpleStringProperty Phone_Number;
+		private final SimpleStringProperty Zip_Code;
 
 		public Customer(String id, String firstName, String lastName, String email, String phoneNumber, String streetAddress, String APT, String city, String state, String zipCode)
 		{
 			this.Customer_ID = new SimpleStringProperty(id);
 			this.First_Name = new SimpleStringProperty(firstName);
 			this.Last_Name = new SimpleStringProperty(lastName);
+			this.Email = new SimpleStringProperty(email);
+			this.Phone_Number = new SimpleStringProperty(phoneNumber);
 			this.Street_Address = new SimpleStringProperty(streetAddress);
 			this.APT = new SimpleStringProperty(APT);
 			this.City = new SimpleStringProperty(city);
-			this.Zip_Code = new SimpleStringProperty(zipCode);
-			this.Email = new SimpleStringProperty(email);
 			this.State = new SimpleStringProperty(state);
-			this.Phone_Number = new SimpleStringProperty(phoneNumber);
+			this.Zip_Code = new SimpleStringProperty(zipCode);
 		}
 
 
@@ -303,6 +299,14 @@ public class CustomerViewController implements Initializable
 			return Last_Name.get();
 		}
 
+		public String getEmail() {
+			return Email.get();
+		}
+
+		public String getPhone_Number() {
+			return Phone_Number.get();
+		}
+
 		public String getStreet_Address() {
 			return Street_Address.get();
 		}
@@ -315,23 +319,13 @@ public class CustomerViewController implements Initializable
 			return City.get();
 		}
 
-		public String getZip_Code() {
-			return Zip_Code.get();
-		}
-
-		public String getEmail() {
-			return Email.get();
-		}
-
 		public String getState(){
 			return State.get();
 		}
 
-		public String getPhone_Number() {
-			return Phone_Number.get();
+		public String getZip_Code() {
+			return Zip_Code.get();
 		}
-
-
 	}
 
 }
