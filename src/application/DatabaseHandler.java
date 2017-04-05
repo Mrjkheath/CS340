@@ -13,7 +13,7 @@ public final class DatabaseHandler {
 
     private static DatabaseHandler handler=null;
 
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/sys" ;
+    //private static final String DB_URL = "jdbc:mysql://localhost:3306/sys" ;
     private static Connection conn = null;
     private static Statement stmt = null;
 
