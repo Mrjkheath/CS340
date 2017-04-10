@@ -69,12 +69,6 @@ public class MainViewController implements Initializable{
 	void btnExitClicked(ActionEvent event) {
 		 System.exit(0);
 	}
-
-	
-
-	
-//	@FXML
-//	private VBox custMenu;
 	  
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
