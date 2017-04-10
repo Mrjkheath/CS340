@@ -1,11 +1,6 @@
 package application;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import javax.swing.JOptionPane;
 
 
@@ -13,9 +8,10 @@ public final class DatabaseHandler {
 
     private static DatabaseHandler handler=null;
 
-    //private static final String DB_URL = "jdbc:mysql://localhost:3306/sys" ;
+    //private static final String DB_URL = "jdbc:mysql://localhost:3306/sys?autoReconnect=true&useSSL=false" ;
     private static Connection conn = null;
     private static Statement stmt = null;
+    private static PreparedStatement pStmt = null;
 
     private DatabaseHandler() {
         createConnection();
@@ -34,7 +30,7 @@ public final class DatabaseHandler {
     void createConnection() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys", "root", "password");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys?autoReconnect=true&useSSL=false", "root", "password");
             System.out.println("Connection Successful!");
         } catch (Exception e) {
             e.printStackTrace();
@@ -44,7 +40,22 @@ public final class DatabaseHandler {
     public ResultSet execQuery(String query) {
         ResultSet result;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys", "root", "password");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys?autoReconnect=true&useSSL=false", "root", "password");
+            stmt = conn.createStatement();
+            result = stmt.executeQuery(query);
+        } catch (SQLException ex) {
+            System.out.println("Exception at execUpdate:dataHandler" + ex.getLocalizedMessage());
+            return null;
+        } finally {
+        }
+        return result;
+    }
+
+    public ResultSet execUpdate(String query)
+    {
+        ResultSet result;
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys?autoReconnect=true&useSSL=false", "root", "password");
             stmt = conn.createStatement();
             result = stmt.executeQuery(query);
         } catch (SQLException ex) {

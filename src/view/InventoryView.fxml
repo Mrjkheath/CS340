@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InventoryViewController">
+<AnchorPane fx:id="rootPane" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InventoryViewController">
    <children>
       <Pane layoutX="392.0" layoutY="43.0" prefHeight="234.0" prefWidth="569.0" style="-fx-background-color: #FFFFFF;" AnchorPane.leftAnchor="392.0" AnchorPane.rightAnchor="319.0">
          <effect>
