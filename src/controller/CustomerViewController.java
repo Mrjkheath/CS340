@@ -5,15 +5,22 @@ package controller;
 	import java.util.ResourceBundle;
 	import java.util.Optional;
 	import java.util.function.Predicate;
+	import java.time.LocalDate;
+	import java.time.format.DateTimeFormatter;
+	import java.util.regex.Pattern;
+	import java.util.regex.Matcher;
+
+
 
 
 	import com.jfoenix.controls.JFXButton;
 	import com.jfoenix.controls.JFXTextArea;
 	import com.jfoenix.controls.JFXTextField;
 
-	import javafx.scene.control.ButtonType;
-	import javafx.scene.control.Alert;
+	import javafx.scene.control.*;
 	import javafx.scene.control.Alert.AlertType;
+	import javafx.scene.control.TableColumn;
+	import javafx.util.StringConverter;
 
 
 	import javafx.event.ActionEvent;
@@ -24,8 +31,6 @@ package controller;
 	import javafx.fxml.Initializable;
 	import javafx.scene.layout.AnchorPane;
 	import javafx.beans.property.SimpleStringProperty;
-	import javafx.scene.control.TableColumn;
-	import javafx.scene.control.TableView;
 	import javafx.scene.control.cell.PropertyValueFactory;
 	import javafx.scene.layout.Region;
 	import javafx.collections.FXCollections;
@@ -34,22 +39,29 @@ package controller;
 	import javafx.collections.transformation.SortedList;
 	import java.util.logging.Level;
 	import java.util.logging.Logger;
+	import javafx.util.Callback;
 
 
 	import application.DatabaseHandler;
 	import application.Customer;
 	import application.CreditCard;
+	import application.DisabledDateRange;
 
+	import javax.swing.table.*;
 	import java.sql.*;
 
 public class CustomerViewController implements Initializable
 {
-
 		// These are the lists that are used to display the information in the tables.
 		ObservableList<Customer> list = FXCollections.observableArrayList();
 		ObservableList<CreditCard> creditList = FXCollections.observableArrayList();
 		FilteredList<Customer> filteredCustomerList = new FilteredList<Customer>(list);
 		FilteredList<CreditCard> filteredCreditCardList = new FilteredList<CreditCard>(creditList);
+
+
+		ObservableList<DisabledDateRange> rangesToDisable =
+				FXCollections.observableArrayList(
+						new DisabledDateRange(LocalDate.now().minusYears(18), LocalDate.now()));
 
 		@FXML
 		AnchorPane rootPane;
@@ -88,6 +100,9 @@ public class CustomerViewController implements Initializable
 
 	    @FXML
 	    private JFXTextField lNameTF;
+
+	    @FXML
+		private JFXTextField rentalsTF;
 
 	    @FXML
 	    private JFXTextField cityTF;
@@ -143,6 +158,12 @@ public class CustomerViewController implements Initializable
 		@FXML
 		TableColumn<Customer, String> zipCode;
 
+		@FXML
+		TableColumn<Customer, String> dateOfBirthCol;
+
+		@FXML
+		TableColumn<Customer, Integer> numRentalsCol;
+
 
 		// Credit Card Table Info
 		@FXML
@@ -173,6 +194,9 @@ public class CustomerViewController implements Initializable
 
 		@FXML
 		private JFXTextField searchCreditCard;
+
+		@FXML
+		private DatePicker dobDatePicker;
 
 		Connection conn = null;
 
@@ -242,46 +266,53 @@ public class CustomerViewController implements Initializable
 	// Creates a customer for the customer database upon the user clicking the Create New Customer Button.
 	public void btnCreateCustomerClicked(ActionEvent event) throws SQLException, ClassNotFoundException
 	{
+		//if(validateCustomerID() & validateFirstName() & validateLastName() & validatePhoneNo()) {
 
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys?autoReconnect=true&useSSL=false", "root", "password");
-			System.out.println("Successful Database Connection.");
-
-
-			PreparedStatement statement = conn.prepareStatement("INSERT INTO CUSTOMER_INFORMATION VALUES (?,?,?,?,?,?,?,?,?,?)");
-
-			statement.setString(1, cusIDTF.getText());
-			statement.setString(2, fNameTF.getText());
-			statement.setString(3, lNameTF.getText());
-			statement.setString(4, emailTF.getText());
-			statement.setString(5, phoneNumTF.getText());
-			statement.setString(6, addressTF.getText());
-			statement.setString(7, aptTF.getText());
-			statement.setString(8, cityTF.getText());
-			statement.setString(9, stateTF.getText());
-			statement.setString(10, zipTF.getText());
-
-			statement.executeUpdate();
+			try {
+				Class.forName("com.mysql.jdbc.Driver");
+				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys?autoReconnect=true&useSSL=false", "root", "password");
+				System.out.println("Successful Database Connection.");
 
 
-			Alert addedCustomer = new Alert(AlertType.INFORMATION,  fNameTF.getText() + " has been added to the system!", ButtonType.OK);
-			addedCustomer.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-			addedCustomer.setHeaderText("Customer Added!");
-			addedCustomer.setTitle("Customer");
-			addedCustomer.show();
+				PreparedStatement statement = conn.prepareStatement("INSERT INTO CUSTOMER_INFORMATION VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
 
-			list.clear();
-			loadCustomerData();
-			clearCustomerTextFields();
+				statement.setString(1, cusIDTF.getText());
+				statement.setString(2, fNameTF.getText());
+				statement.setString(3, lNameTF.getText());
+				statement.setInt(4, Integer.parseInt(rentalsTF.getText()));
+				statement.setString(5, emailTF.getText());
+				statement.setString(6, phoneNumTF.getText());
+				statement.setString(7, addressTF.getText());
+				statement.setString(8, aptTF.getText());
+				statement.setString(9, cityTF.getText());
+				statement.setString(10, stateTF.getText());
+				statement.setString(11, zipTF.getText());
+				statement.setString(12, ((TextField) dobDatePicker.getEditor()).getText());
 
-		}catch (SQLException e){
-			Alert alert = new Alert(AlertType.ERROR, "The customer you tried to enter was either: \nAlready entered into the database, \nor one or more fields were left blank.", ButtonType.OK);
-			alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-			alert.setHeaderText("Failed to add Customer");
-			alert.setTitle("Customer");
-			alert.show();
-		}
+
+				statement.executeUpdate();
+
+
+				Alert addedCustomer = new Alert(AlertType.INFORMATION, fNameTF.getText() + " has been added to the system!", ButtonType.OK);
+				addedCustomer.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+				addedCustomer.setHeaderText("Customer Added!");
+				addedCustomer.setTitle("Customer");
+				addedCustomer.show();
+
+				list.clear();
+				loadCustomerData();
+				clearCustomerTextFields();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+				Alert alert = new Alert(AlertType.ERROR, "The customer you tried to enter was either: \nAlready entered into the database, \nor one or more fields were left blank.", ButtonType.OK);
+				alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+				alert.setHeaderText("Failed to add Customer");
+				alert.setTitle("Customer");
+				alert.show();
+			}
+
+
 
 	}
 
@@ -293,22 +324,25 @@ public class CustomerViewController implements Initializable
 	@FXML
 	void btnUpdateCustomerClicked(ActionEvent event)
 	{
+
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys?autoReconnect=true&useSSL=false", "root", "password");
-			String query = "UPDATE CUSTOMER_INFORMATION SET CUSTOMER_ID = ?, FIRST_NAME = ?, LAST_NAME = ?, EMAIL = ?, PHONE_NUMBER = ?, STREET_ADDRESS = ?, APARTMENT = ?, CITY = ?, STATE = ?, ZIP_CODE = ? WHERE CUSTOMER_ID='" + cusIDTF.getText() + "' ";
+			String query = "UPDATE CUSTOMER_INFORMATION SET CUSTOMER_ID = ?, FIRST_NAME = ?, LAST_NAME = ?, NUMBER_OF_RENTALS = ?, EMAIL = ?, PHONE_NUMBER = ?, STREET_ADDRESS = ?, APARTMENT = ?, CITY = ?, STATE = ?, ZIP_CODE = ?, DATE_OF_BIRTH = ? WHERE CUSTOMER_ID='" + cusIDTF.getText() + "' ";
 			pst = conn.prepareStatement(query);
 
 			pst.setString(1, cusIDTF.getText());
 			pst.setString(2, fNameTF.getText());
 			pst.setString(3, lNameTF.getText());
-			pst.setString(4, emailTF.getText());
-			pst.setString(5, phoneNumTF.getText());
-			pst.setString(6, addressTF.getText());
-			pst.setString(7, aptTF.getText());
-			pst.setString(8, cityTF.getText());
-			pst.setString(9, stateTF.getText());
-			pst.setString(10, zipTF.getText());
+			pst.setInt(4, Integer.parseInt(rentalsTF.getText()));
+			pst.setString(5, emailTF.getText());
+			pst.setString(6, phoneNumTF.getText());
+			pst.setString(7, addressTF.getText());
+			pst.setString(8, aptTF.getText());
+			pst.setString(9, cityTF.getText());
+			pst.setString(10, stateTF.getText());
+			pst.setString(11, zipTF.getText());
+			pst.setString(12, ((TextField)dobDatePicker.getEditor()).getText());
 
 
 			Alert alert = new Alert(AlertType.INFORMATION, "The customer: " + fNameTF.getText() + " " + lNameTF.getText() + " has been updated!", ButtonType.OK);
@@ -324,6 +358,7 @@ public class CustomerViewController implements Initializable
 			refreshCustomerTable();
 
 		} catch (SQLException e){
+			e.printStackTrace();
 			Alert alert = new Alert(AlertType.ERROR,"Make sure you included an ID for the Customer!\n(It's required!)", ButtonType.OK);
 			alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
 			alert.setHeaderText("SQL Error");
@@ -344,6 +379,7 @@ public class CustomerViewController implements Initializable
 	@FXML
 	void btnUpdateCreditCardClicked(ActionEvent event)
 	{
+
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys?autoReconnect=true&useSSL=false", "root", "password");
@@ -488,6 +524,7 @@ public class CustomerViewController implements Initializable
 				String id = rs.getString("CUSTOMER_ID");
 				String firstName = rs.getString("FIRST_NAME");
 				String lastName = rs.getString("LAST_NAME");
+				Integer rentalNum = rs.getInt("NUMBER_OF_RENTALS");
 				String email = rs.getString("EMAIL");
 				String phoneNumber = rs.getString("PHONE_NUMBER");
 				String streetAddress = rs.getString("STREET_ADDRESS");
@@ -495,8 +532,9 @@ public class CustomerViewController implements Initializable
 				String city = rs.getString("CITY");
 				String state = rs.getString("STATE");
 				String zipCode = rs.getString("ZIP_CODE");
+				String dateofBirth = rs.getString("DATE_OF_BIRTH");
 
-				list.add(new Customer(id, firstName, lastName, email, phoneNumber, streetAddress, APT, city, state, zipCode));
+				list.add(new Customer(id, firstName, lastName, rentalNum, email, phoneNumber, streetAddress, APT, city, state, zipCode, dateofBirth));
 
 			}
 		} catch (SQLException ex) {
@@ -544,6 +582,35 @@ public class CustomerViewController implements Initializable
 		initColumn();
 		loadCustomerData(); // Loads customer data into the customer table
 		loadCreditCardData(); // Loads credit card data int the credit card table
+		dobDatePicker.setValue(LocalDate.now().minusYears(18));
+		final Callback<DatePicker, DateCell> dayCellFactory =
+				new Callback<DatePicker, DateCell>() {
+					@Override
+					public DateCell call(final DatePicker datePicker) {
+						return new DateCell() {
+							@Override
+							public void updateItem(LocalDate item, boolean empty) {
+								super.updateItem(item, empty);
+
+
+								if (item.isBefore(LocalDate.now()) && item.isAfter(LocalDate.now().minusYears(18)))
+								{
+									setDisable(true);
+									setStyle("-fx-background-color: #ffc0cb;");
+								}
+								/*
+								else if (item.isAfter(dobDatePicker.getValue().minusYears(18)))
+								{
+									setDisable(true);
+									setStyle("-fx-background-color: #ffc0cb");
+								}
+								*/
+							}
+						};
+					}
+				};
+		dobDatePicker.setDayCellFactory(dayCellFactory);
+
 	}
 
 	// This method establishes the columns for the tables.
@@ -554,6 +621,7 @@ public class CustomerViewController implements Initializable
 		customerID.setCellValueFactory(new PropertyValueFactory("Customer_ID"));
 		firstName.setCellValueFactory(new PropertyValueFactory("First_Name"));
 		lastName.setCellValueFactory(new PropertyValueFactory("Last_Name"));
+		numRentalsCol.setCellValueFactory(new PropertyValueFactory("Num_Rentals"));
 		email.setCellValueFactory(new PropertyValueFactory("Email"));
 		phoneNumber.setCellValueFactory(new PropertyValueFactory("Phone_Number"));
 		streetAddress.setCellValueFactory(new PropertyValueFactory("Street_Address"));
@@ -561,6 +629,8 @@ public class CustomerViewController implements Initializable
 		city.setCellValueFactory(new PropertyValueFactory("City"));
 		state.setCellValueFactory(new PropertyValueFactory("State"));
 		zipCode.setCellValueFactory(new PropertyValueFactory("Zip_Code"));
+		dateOfBirthCol.setCellValueFactory(new PropertyValueFactory("Date_Of_Birth"));
+
 
 		// Establishes credit card table columns
 		ccCustomerID.setCellValueFactory(new PropertyValueFactory("Customer_ID"));
@@ -598,6 +668,7 @@ public class CustomerViewController implements Initializable
 			cusIDTF.setText(rs.getString("CUSTOMER_ID"));
 			fNameTF.setText(rs.getString("FIRST_NAME"));
 			lNameTF.setText(rs.getString("LAST_NAME"));
+			rentalsTF.setText(Integer.toString(rs.getInt("NUMBER_OF_RENTALS")));
 			emailTF.setText(rs.getString("EMAIL"));
 			phoneNumTF.setText(rs.getString("PHONE_NUMBER"));
 			addressTF.setText(rs.getString("STREET_ADDRESS"));
@@ -605,6 +676,7 @@ public class CustomerViewController implements Initializable
 			cityTF.setText(rs.getString("CITY"));
 			stateTF.setText(rs.getString("STATE"));
 			zipTF.setText(rs.getString("ZIP_CODE"));
+			((TextField)dobDatePicker.getEditor()).setText(rs.getString("DATE_OF_BIRTH"));
 		}
 
 		pst.close();
@@ -705,6 +777,7 @@ public class CustomerViewController implements Initializable
 		cusIDTF.clear();
 		fNameTF.clear();
 		lNameTF.clear();
+		rentalsTF.clear();
 		emailTF.clear();
 		phoneNumTF.clear();
 		addressTF.clear();
@@ -712,6 +785,7 @@ public class CustomerViewController implements Initializable
 		cityTF.clear();
 		stateTF.clear();
 		zipTF.clear();
+		dobDatePicker.getEditor().clear();
 	}
 
 	// Clears the text fields for the credit card information form.
@@ -776,6 +850,70 @@ public class CustomerViewController implements Initializable
 	{
 		creditList.clear();
 		loadCreditCardData();
+	}
+
+	private boolean validateFirstName(){
+		Pattern p = Pattern.compile("[a-zA-Z]+");
+		Matcher m = p.matcher(fNameTF.getText());
+		if(m.find() && m.group().equals(fNameTF.getText())){
+			return true;
+		}else{
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Validate First Name");
+			alert.setHeaderText(null);
+			alert.setContentText("Please Enter Valid First Name! \n(Only upper and lowercase letters)");
+			alert.showAndWait();
+
+			return false;
+		}
+	}
+
+	private boolean validateLastName(){
+		Pattern p = Pattern.compile("[a-zA-Z]+");
+		Matcher m = p.matcher(lNameTF.getText());
+		if(m.find() && m.group().equals(lNameTF.getText())){
+			return true;
+		}else{
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Validate Last Name");
+			alert.setHeaderText(null);
+			alert.setContentText("Please Enter Valid Last Name! \n(Only upper and lowercase letters)");
+			alert.showAndWait();
+
+			return false;
+		}
+	}
+
+	private boolean validateCustomerID(){
+		Pattern p = Pattern.compile("[0-9]+");
+		Matcher m = p.matcher(cusIDTF.getText());
+		if(m.find() && m.group().equals(cusIDTF.getText())){
+			return true;
+		}else{
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Validate ID Number");
+			alert.setHeaderText(null);
+			alert.setContentText("Please Enter a Valid Customer ID \n(Only 5 digit numbers)");
+			alert.showAndWait();
+
+			return false;
+		}
+	}
+
+	private boolean validatePhoneNo(){
+		Pattern p = Pattern.compile("(0|91)?[7-9][0-9]{9}");
+		Matcher m = p.matcher(phoneNumTF.getText());
+		if(m.find() && m.group().equals(phoneNumTF.getText())){
+			return true;
+		}else{
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Validate Phone Number");
+			alert.setHeaderText(null);
+			alert.setContentText("Please Enter a Valid Phone Number \nOnly 11 digit numbers");
+			alert.showAndWait();
+
+			return false;
+		}
 	}
 
 }

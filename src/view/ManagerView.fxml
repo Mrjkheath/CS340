@@ -1,13 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #002b80;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManagerViewController">
    <children>
-      <Label layoutX="283.0" layoutY="181.0" text="Manager" />
+      <TableView fx:id="associateTable" layoutX="531.0" layoutY="124.0" onMouseReleased="#handleEmployeeTableClick" prefHeight="210.0" prefWidth="738.0">
+         <columns>
+            <TableColumn fx:id="associateIDCol" prefWidth="117.0" text="Associate_ID" />
+            <TableColumn fx:id="fNameCol" prefWidth="196.0" text="First_Name" />
+            <TableColumn fx:id="lNameCol" prefWidth="200.0" text="Last_Name" />
+            <TableColumn fx:id="associateStrtDateCol" prefWidth="180.0" text="Associate_Start_Date" />
+            <TableColumn fx:id="associateBDayCol" prefWidth="161.0" text="Associate_Birthday" />
+            <TableColumn fx:id="ssnCol" prefWidth="155.0" text="SSN" />
+            <TableColumn fx:id="pNumCol" prefWidth="188.0" text="Phone_Number" />
+            <TableColumn fx:id="hourlyRateCol" prefWidth="98.0" text="Hourly_Rate" />
+         </columns>
+      </TableView>
+      <JFXButton fx:id="deleteLoginBtn" buttonType="RAISED" layoutX="351.0" layoutY="685.0" onAction="#btnDeleteLoginClicked" style="-fx-border-color: #C0C0C0; -fx-background-color: #ffffff;" text="Delete Login" />
+      <JFXButton fx:id="createLoginBtn" buttonType="RAISED" layoutX="185.0" layoutY="684.0" onAction="#btnCreateLoginClicked" prefHeight="27.0" prefWidth="144.0" style="-fx-border-color: #C0C0C0; -fx-background-color: #ffffff;" text="Create New Login" />
+      <JFXButton fx:id="updateLoginBtn" buttonType="RAISED" layoutX="63.0" layoutY="685.0" onAction="#btnUpdateLoginClicked" style="-fx-border-color: #C0C0C0; -fx-background-color: #ffffff;" text="Update Login" />
+      <JFXButton fx:id="deleteEmployeeBtn" buttonType="RAISED" layoutX="365.0" layoutY="344.0" onAction="#btnDeleteEmployeeClicked" style="-fx-border-color: #C0C0C0; -fx-background-color: #ffffff;" text="Delete Employee" />
+      <JFXButton fx:id="updateEmployeeBtn" buttonType="RAISED" layoutX="29.0" layoutY="344.0" onAction="#btnUpdateEmployeeClicked" style="-fx-border-color: #C0C0C0; -fx-background-color: #ffffff;" text="Update Employee" />
+      <JFXButton fx:id="btnCreateEmployee" buttonType="RAISED" layoutX="178.0" layoutY="344.0" onAction="#btnCreateEmployeeClicked" prefHeight="27.0" prefWidth="176.0" ripplerFill="#4059a9" style="-fx-border-color: #C0C0C0; -fx-background-color: #ffffff;" text="Create New Employee" />
+      <Pane layoutX="67.0" layoutY="35.0" prefHeight="57.0" prefWidth="401.0" style="-fx-background-color: #FFFFFF;">
+         <effect>
+            <DropShadow />
+         </effect>
+         <children>
+            <JFXButton fx:id="exitBtn" layoutX="201.0" onAction="#btnExitClicked" prefHeight="57.0" prefWidth="200.0" ripplerFill="#4059a9" style="-fx-border-color: #C0C0C0;" text="Exit" />
+            <JFXButton fx:id="btnBack" onAction="#btnBackClicked" prefHeight="57.0" prefWidth="200.0" ripplerFill="#4059a9" style="-fx-border-color: #C0C0C0;" text="Back" />
+         </children>
+      </Pane>
+      <Pane layoutX="23.0" layoutY="448.0" prefHeight="224.0" prefWidth="505.0" style="-fx-background-color: #FFFFFF;">
+         <children>
+            <Label layoutX="14.0" layoutY="13.0" prefHeight="20.0" prefWidth="207.0" text="Login Information:" underline="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="loginIDTF" layoutX="18.0" layoutY="63.0" prefHeight="25.0" prefWidth="259.0" promptText="Associate ID" />
+            <JFXPasswordField fx:id="passwordTF" layoutX="17.0" layoutY="123.0" prefHeight="23.0" prefWidth="259.0" promptText="Password" />
+            <JFXButton fx:id="clearLoginTF" layoutX="381.0" layoutY="171.0" onAction="#clearLoginInfoForm" style="-fx-border-color: #C0C0C0;" text="Clear Fields" />
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Pane>
+      <Pane layoutX="23.0" layoutY="125.0" prefHeight="210.0" prefWidth="489.0" style="-fx-background-color: #FFFFFF;">
+         <children>
+            <JFXTextField fx:id="empIDTF" layoutX="13.0" layoutY="44.0" prefHeight="23.0" prefWidth="96.0" promptText="Associate ID" />
+            <JFXTextField fx:id="fNameTF" layoutX="120.0" layoutY="42.0" prefHeight="25.0" prefWidth="144.0" promptText="First Name" />
+            <JFXTextField fx:id="lNameTF" layoutX="276.0" layoutY="42.0" prefHeight="25.0" prefWidth="176.0" promptText="Last Name" />
+            <JFXTextField fx:id="ssnTF" layoutX="12.0" layoutY="108.0" prefHeight="25.0" prefWidth="164.0" promptText="Social Security Number" />
+            <JFXTextField fx:id="hourlyRateTF" layoutX="193.0" layoutY="108.0" prefHeight="25.0" prefWidth="79.0" promptText="Hourly Rate" />
+            <JFXTextField fx:id="phoneNumTF" layoutX="11.0" layoutY="140.0" prefHeight="25.0" prefWidth="164.0" promptText="Phone Number" />
+            <Label layoutX="17.0" layoutY="14.0" prefHeight="20.0" prefWidth="200.0" text="Associate Information:" underline="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="clearEmployeeTF" layoutX="384.0" layoutY="174.0" onAction="#clearEmployeeInfoForm" style="-fx-border-color: #C0C0C0;" text="Clear Fields" />
+            <DatePicker fx:id="dobDatePicker" layoutX="215.0" layoutY="80.0" prefHeight="25.0" prefWidth="182.0" promptText="Date of Birth" />
+            <DatePicker fx:id="empStrtDatePicker" layoutX="12.0" layoutY="80.0" prefHeight="25.0" prefWidth="182.0" promptText="Employee Start Date" />
+            <Label layoutX="12.0" layoutY="178.0" text="Note: Manager Associate ID's MUST Start with an 'M'" />
+            <Label layoutX="285.0" layoutY="117.0" prefHeight="15.0" prefWidth="232.0" text="Hourly Rate entry format is:" />
+            <Label layoutX="359.0" layoutY="139.0" text="xx.xx" />
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Pane>
+      <TableView fx:id="loginTable" layoutX="694.0" layoutY="440.0" onMouseReleased="#handleLoginTableClick" prefHeight="232.0" prefWidth="560.0">
+         <columns>
+            <TableColumn fx:id="associateLoginIDCol" prefWidth="127.0" text="Associate_ID" />
+            <TableColumn fx:id="passwordCol" prefWidth="193.0" text="Password" />
+         </columns>
+      </TableView>
+      <JFXTextField fx:id="associateTableFilter" layoutX="532.0" layoutY="94.0" onKeyReleased="#associateFilterKeySearch" promptText="Filter" style="-fx-background-color: #ffffff;" />
+      <JFXTextField fx:id="loginTableFilter" layoutX="696.0" layoutY="399.0" onKeyReleased="#loginFilterKeySearch" prefHeight="23.0" prefWidth="155.0" promptText="Filter" style="-fx-background-color: #ffffff;" />
+      <JFXButton fx:id="refreshLoginTable" layoutX="1146.0" layoutY="402.0" onAction="#btnRefreshLoginTable" style="-fx-border-color: #C0C0C0; -fx-background-color: #ffffff;" text="Refresh Table" />
+      <JFXButton fx:id="refreshAssociateTable" layoutX="1158.0" layoutY="93.0" onAction="#btnRefreshAssociateTable" style="-fx-border-color: #C0C0C0; -fx-background-color: #ffffff;" text="Refresh Table" />
+      <Label contentDisplay="CENTER" layoutX="791.0" layoutY="2.0" prefHeight="105.0" prefWidth="296.0" text="Manager Menu" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="131.0" fitWidth="236.0" layoutX="505.0" layoutY="671.0">
+         <image>
+            <Image url="@../img/VideoShoppeLogo.jpg" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

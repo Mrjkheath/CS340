@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.*?>
@@ -8,12 +9,24 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainViewController">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-image: image_uploaded_from_ios; -fx-background-color: #002b80;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainViewController">
    <children>
-      <JFXButton fx:id="btnCustomer" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="586.0" layoutY="346.0" lineSpacing="10.0" onAction="#btnCustomerClicked" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #f1f1f1;" text="CUSTOMERS" />
-      <JFXButton fx:id="btnRentals" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="588.0" layoutY="400.0" lineSpacing="10.0" onAction="#btnRentalsClicked" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #f1f1f1;" text="RENTALS" />
-      <JFXButton fx:id="btnInventory" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="588.0" layoutY="454.0" lineSpacing="10.0" onAction="#btnInventoryClicked" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #f1f1f1;" text="INVENTORY" />
-      <JFXButton fx:id="btnManagement" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="588.0" layoutY="510.0" lineSpacing="10.0" onAction="#btnManagement" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #f1f1f1;" text="MANAGEMENT" />
-      <JFXButton fx:id="btnExit" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="588.0" layoutY="568.0" lineSpacing="10.0" onAction="#btnExitClicked" prefHeight="35.0" prefWidth="150.0" snapToPixel="false" style="-fx-background-color: #f1f1f1;" text="EXIT" />
+      <JFXButton fx:id="btnCustomer" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="587.0" layoutY="380.0" lineSpacing="10.0" onAction="#btnCustomerClicked" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #f1f1f1;" text="CUSTOMERS" />
+      <JFXButton fx:id="btnRentals" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="586.0" layoutY="440.0" lineSpacing="10.0" onAction="#btnRentalsClicked" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #f1f1f1;" text="RENTALS" />
+      <JFXButton fx:id="btnInventory" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="588.0" layoutY="496.0" lineSpacing="10.0" onAction="#btnInventoryClicked" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #f1f1f1;" text="INVENTORY" />
+      <JFXButton fx:id="btnManagement" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="588.0" layoutY="558.0" lineSpacing="10.0" onAction="#btnManagement" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #f1f1f1;" text="MANAGEMENT" />
+      <JFXButton fx:id="btnExit" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="590.0" layoutY="677.0" lineSpacing="10.0" onAction="#btnExitClicked" prefHeight="35.0" prefWidth="150.0" snapToPixel="false" style="-fx-background-color: #f1f1f1;" text="EXIT" />
+      <JFXButton fx:id="btnAccounting" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="589.0" layoutY="618.0" lineSpacing="10.0" onAction="#btnAccounting" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #f1f1f1;" text="ACCOUNTING" />
+      <ImageView fitHeight="322.0" fitWidth="888.0" layoutX="193.0" layoutY="37.0">
+         <image>
+            <Image url="@../img/VideoShoppeLogo.jpg" />
+         </image>
+      </ImageView>
    </children>
+   <cursor>
+      <Cursor fx:constant="HAND" />
+   </cursor>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
 </AnchorPane>

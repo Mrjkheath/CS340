@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import com.jfoenix.controls.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.effect.*?>
@@ -8,23 +9,80 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RentalViewController">
+<AnchorPane fx:id="rootPane" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #002b80;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RentalViewController">
    <children>
-      <Pane layoutX="431.0" layoutY="168.0" prefHeight="464.0" prefWidth="419.0" style="-fx-background-color: #FFFFFF;">
+      <Pane layoutX="9.0" layoutY="10.0" prefHeight="192.0" prefWidth="175.0" style="-fx-background-color: #FFFFFF;">
          <effect>
             <DropShadow />
          </effect>
          <children>
-            <Label contentDisplay="CENTER" layoutX="173.0" layoutY="53.0" prefHeight="60.0" prefWidth="73.0" text="Rentals">
+            <Label contentDisplay="CENTER" layoutX="51.0" layoutY="14.0" prefHeight="60.0" prefWidth="95.0" text="Rentals">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <JFXButton fx:id="btnCreateNewCustomer" layoutX="133.0" layoutY="137.0" onAction="#btnCreateNewCustomerclicked" prefHeight="45.0" prefWidth="156.0" style="-fx-border-color: #C0C0C0;" text="Create New Customer" />
-            <JFXButton fx:id="btnRentMovie" layoutX="132.0" layoutY="202.0" onAction="#btnRentMovieClicked" prefHeight="45.0" prefWidth="156.0" style="-fx-border-color: #C0C0C0;" text="Rent Movie" />
-            <JFXButton fx:id="btnBack" layoutX="133.0" layoutY="264.0" onAction="#btnBackClicked" prefHeight="45.0" prefWidth="156.0" style="-fx-border-color: #C0C0C0;" text="Back" />
-            <JFXButton fx:id="btnExit" layoutX="133.0" layoutY="324.0" onAction="#btnExitClicked" prefHeight="45.0" prefWidth="156.0" style="-fx-border-color: #C0C0C0;" text="Exit" />
+            <JFXButton fx:id="btnBack" layoutX="10.0" layoutY="86.0" onAction="#btnBackClicked" prefHeight="45.0" prefWidth="156.0" style="-fx-border-color: #C0C0C0;" text="Back" />
+            <JFXButton fx:id="btnExit" layoutX="10.0" layoutY="131.0" onAction="#btnExitClicked" prefHeight="45.0" prefWidth="156.0" style="-fx-border-color: #C0C0C0;" text="Exit" />
          </children>
       </Pane>
+      <Pane layoutX="198.0" layoutY="11.0" prefHeight="192.0" prefWidth="430.0" style="-fx-background-color: #FFFFFF;">
+         <effect>
+            <DropShadow />
+         </effect>
+         <children>
+            <JFXButton fx:id="btnRentMovie" layoutX="76.0" layoutY="112.0" onAction="#btnRentMovieClicked" prefHeight="29.0" prefWidth="135.0" style="-fx-border-color: #C0C0C0;" text="Rent Movie" />
+            <JFXButton fx:id="btnReturnMovie" layoutX="76.0" layoutY="149.0" onAction="#btnReturnMovieClicked" prefHeight="29.0" prefWidth="135.0" style="-fx-border-color: #C0C0C0;" text="Return Movie" />
+            <JFXButton fx:id="btnClearFields" layoutX="219.0" layoutY="149.0" onAction="#btnClearFieldsClicked" prefHeight="29.0" prefWidth="135.0" style="-fx-border-color: #C0C0C0;" text="Clear Fields" />
+            <JFXTextField fx:id="customerIDTF" layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="82.0" promptText="Customer ID" />
+            <JFXTextField fx:id="firstNameTF" layoutX="110.0" layoutY="14.0" promptText="First Name" />
+            <JFXTextField fx:id="lastNameTF" layoutX="271.0" layoutY="14.0" promptText="Last Name" />
+            <JFXTextField fx:id="movieIDTF" layoutX="14.0" layoutY="71.0" prefHeight="25.0" prefWidth="82.0" promptText="Movie ID" />
+            <JFXTextField fx:id="movieTitleTF" layoutX="110.0" layoutY="71.0" promptText="Movie Title" />
+            <JFXButton fx:id="btnPurchaseMovie" layoutX="219.0" layoutY="112.0" onAction="#btnPurchaseMovieClicked" prefHeight="29.0" prefWidth="135.0" style="-fx-border-color: #C0C0C0;" text="Purchase Movie" />
+         </children>
+      </Pane>
+      <TableView fx:id="customerTable" layoutX="14.0" layoutY="252.0" onMouseReleased="#handleCustomerTableEvent" prefHeight="164.0" prefWidth="622.0" AnchorPane.leftAnchor="14.0">
+         <columns>
+            <TableColumn fx:id="customerIDCustCol" prefWidth="99.0" text="Customer_ID" />
+            <TableColumn fx:id="firstNameCustCol" prefWidth="91.0" text="First Name" />
+            <TableColumn fx:id="lastNameCustCol" prefWidth="75.0" text="Last Name" />
+            <TableColumn fx:id="numRentalsCustCol" prefWidth="141.0" text="Number of Rentals" />
+            <TableColumn fx:id="creditCardNumCustCol" prefWidth="125.0" text="Credit Card" />
+            <TableColumn fx:id="expirationCustCol" prefWidth="90.0" text="Expiration" />
+         </columns>
+      </TableView>
+      <TableView fx:id="movieTable" layoutX="24.0" layoutY="485.0" onMouseReleased="#handleMovieTableEvent" prefHeight="216.0" prefWidth="1252.0" AnchorPane.bottomAnchor="99.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="485.0">
+         <columns>
+            <TableColumn fx:id="movieIDMovCol" prefWidth="83.0" text="Movie_ID" />
+            <TableColumn fx:id="titleMovCol" prefWidth="513.0" text="Title" />
+            <TableColumn fx:id="ratingMovCol" prefWidth="63.0" text="Rating" />
+            <TableColumn fx:id="genreCol" prefWidth="110.0" text="Genre" />
+            <TableColumn fx:id="relDateMovCol" prefWidth="95.0" text="Release Date" />
+            <TableColumn fx:id="rentalPriceMovCol" prefWidth="94.0" text="Rental Price" />
+            <TableColumn fx:id="purchPriceMovCol" prefWidth="111.0" text="Purchase Price" />
+            <TableColumn fx:id="onHandMovCol" prefWidth="69.0" text="On Hand" />
+            <TableColumn fx:id="totalQantMovCol" prefWidth="112.0" text="Total Quantity" />
+         </columns>
+      </TableView>
+      <JFXTextField fx:id="searchCustomerTF" layoutX="14.0" layoutY="220.0" onKeyReleased="#customerSearchFilter" promptText="Search Customer" style="-fx-background-color: #ffffff;" />
+      <JFXTextField fx:id="searchMovieTF" layoutX="22.0" layoutY="453.0" onKeyReleased="#movieSearchFilter" promptText="Search Movie" style="-fx-background-color: #ffffff;" />
+      <TableView fx:id="rentalTable" layoutX="640.0" layoutY="39.0" onMouseReleased="#handleRentalTableEvent" prefHeight="375.0" prefWidth="615.0" AnchorPane.rightAnchor="14.0">
+         <columns>
+            <TableColumn fx:id="customIDRentCol" prefWidth="107.0" text="Customer ID" />
+            <TableColumn fx:id="fNameRentCol" prefWidth="107.0" text="First Name" />
+            <TableColumn fx:id="lNameRentCol" prefWidth="109.0" text="Last Name" />
+            <TableColumn fx:id="movieIDRentCol" minWidth="0.0" prefWidth="75.0" text="Movie ID" />
+            <TableColumn fx:id="movieTitleRentCol" prefWidth="215.0" text="Movie Title" />
+         </columns>
+      </TableView>
+      <JFXButton fx:id="btnRefreshCustTable" layoutX="525.0" layoutY="219.0" onAction="#btnRefreshCustTableClicked" style="-fx-border-color: #C0C0C0; -fx-background-color: #ffffff;" text="Refresh Table" />
+      <JFXButton fx:id="btnRefreshMovTable" layoutX="1150.0" layoutY="434.0" onAction="#btnRefreshMovTableClicked" style="-fx-border-color: #C0C0C0; -fx-background-color: #ffffff;" text="Refresh Table" />
+      <JFXTextField fx:id="searchRentalTF" layoutX="651.0" layoutY="8.0" onKeyReleased="#currentRentalFilter" promptText="Search Current Rentals" style="-fx-background-color: #ffffff;" />
+      <JFXButton fx:id="btnRefreshRentals" layoutX="1155.0" layoutY="7.0" onAction="#btnRefreshRentalsClicked" style="-fx-border-color: #C0C0C0; -fx-background-color: #ffffff;" text="Refresh Table" />
+      <ImageView fitHeight="107.0" fitWidth="208.0" layoutX="574.0" layoutY="695.0">
+         <image>
+            <Image url="@../img/VideoShoppeLogo.jpg" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

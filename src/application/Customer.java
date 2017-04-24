@@ -1,6 +1,7 @@
 package application;
 
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Customer
@@ -9,6 +10,7 @@ public class Customer
     private final SimpleStringProperty Customer_ID;
     private final SimpleStringProperty First_Name;
     private final SimpleStringProperty Last_Name;
+    private final SimpleIntegerProperty Num_Rentals;
     private final SimpleStringProperty Email;
     private final SimpleStringProperty Phone_Number;
     private final SimpleStringProperty Street_Address;
@@ -16,12 +18,14 @@ public class Customer
     private final SimpleStringProperty City;
     private final SimpleStringProperty State;
     private final SimpleStringProperty Zip_Code;
+    private final SimpleStringProperty Date_Of_Birth;
 
-    public Customer(String id, String firstName, String lastName, String email, String phoneNumber, String streetAddress, String APT, String city, String state, String zipCode)
+    public Customer(String id, String firstName, String lastName, Integer numRent, String email, String phoneNumber, String streetAddress, String APT, String city, String state, String zipCode, String dateOfBirth)
     {
         this.Customer_ID = new SimpleStringProperty(id);
         this.First_Name = new SimpleStringProperty(firstName);
         this.Last_Name = new SimpleStringProperty(lastName);
+        this.Num_Rentals = new SimpleIntegerProperty(numRent);
         this.Email = new SimpleStringProperty(email);
         this.Phone_Number = new SimpleStringProperty(phoneNumber);
         this.Street_Address = new SimpleStringProperty(streetAddress);
@@ -29,6 +33,7 @@ public class Customer
         this.City = new SimpleStringProperty(city);
         this.State = new SimpleStringProperty(state);
         this.Zip_Code = new SimpleStringProperty(zipCode);
+        this.Date_Of_Birth = new SimpleStringProperty(dateOfBirth);
     }
 
 
@@ -72,6 +77,14 @@ public class Customer
         return Zip_Code.get();
     }
 
+    public  String getDate_Of_Birth() {
+        return Date_Of_Birth.get();
+    }
+
+    public Integer getNum_Rentals(){
+        return Num_Rentals.get();
+    }
+
     public void setCustomer_ID(String customer_ID) {
         this.Customer_ID.set(customer_ID);
     }
@@ -110,5 +123,9 @@ public class Customer
 
     public void setZip_Code(String zip_Code) {
         this.Zip_Code.set(zip_Code);
+    }
+
+    public void setDate_Of_Birth(String date_of_birth) {
+        this.Date_Of_Birth.set(date_of_birth);
     }
 }
