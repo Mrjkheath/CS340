@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.effect.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #002b80;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AccountingViewController">
+   <children>
+      <Pane layoutX="40.0" layoutY="101.0" prefHeight="137.0" prefWidth="202.0" style="-fx-background-color: #FFFFFF;">
+         <effect>
+            <DropShadow />
+         </effect>
+      </Pane>
+      <JFXButton fx:id="btnBack" layoutX="40.0" layoutY="101.0" onAction="#btnBackClicked" prefHeight="68.0" prefWidth="202.0" style="-fx-border-color: #C0C0C0;" text="Back" />
+      <JFXButton fx:id="btnExit" layoutX="40.0" layoutY="169.0" onAction="#btnExitClicked" prefHeight="68.0" prefWidth="202.0" style="-fx-border-color: #C0C0C0;" text="Exit" />
+      <Pane layoutX="22.0" layoutY="15.0" prefHeight="68.0" prefWidth="241.0" style="-fx-background-color: #FFFFFF;">
+         <effect>
+            <DropShadow />
+         </effect>
+         <children>
+            <Label layoutX="22.0" layoutY="12.0" text="Accounting">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <TableView fx:id="accountingTable" layoutX="28.0" layoutY="296.0" onMouseReleased="#handleAccountingTableEvent" prefHeight="388.0" prefWidth="1225.0">
+         <columns>
+            <TableColumn fx:id="transactionIDCol" prefWidth="155.0" text="Transaction ID" />
+            <TableColumn fx:id="customerIDCol" prefWidth="133.0" text="Customer ID" />
+            <TableColumn fx:id="movieTitleCol" prefWidth="150.0" text="Movie Title" />
+            <TableColumn fx:id="transactionTypeCol" prefWidth="222.0" text="Transaction Type" />
+            <TableColumn fx:id="dateOfTransactionCol" prefWidth="201.0" text="Date of Transaction" />
+            <TableColumn fx:id="transactionAmountCol" prefWidth="222.0" text="Transaction_Amount" />
+            <TableColumn fx:id="incomeCol" prefWidth="141.0" text="Income" />
+         </columns>
+      </TableView>
+      <JFXButton fx:id="deleteTransactionBtn" buttonType="RAISED" layoutX="826.0" layoutY="248.0" onAction="#btnDeleteTransactionClicked" style="-fx-border-color: #C0C0C0; -fx-background-color: #ffffff;" text="Delete Transaction" />
+      <JFXButton fx:id="createTransactionBtn" buttonType="RAISED" layoutX="627.0" layoutY="249.0" onAction="#btnCreateTransactionClicked" prefHeight="27.0" prefWidth="184.0" style="-fx-border-color: #C0C0C0; -fx-background-color: #ffffff;" text="Create New Transaction" />
+      <JFXButton fx:id="updateTransactionBtn" buttonType="RAISED" layoutX="459.0" layoutY="249.0" onAction="#btnUpdateTransactionClicked" style="-fx-border-color: #C0C0C0; -fx-background-color: #ffffff;" text="Update Transaction" />
+      <Pane layoutX="442.0" layoutY="25.0" prefHeight="210.0" prefWidth="543.0" style="-fx-background-color: #FFFFFF;">
+         <children>
+            <JFXTextField fx:id="cusIDTF" layoutX="142.0" layoutY="45.0" prefHeight="23.0" prefWidth="86.0" promptText="Customer ID" />
+            <JFXTextField fx:id="movieTitleTF" layoutX="248.0" layoutY="43.0" prefHeight="25.0" prefWidth="259.0" promptText="Movie Title" />
+            <JFXTextField fx:id="incomeTF" layoutX="413.0" layoutY="85.0" prefHeight="25.0" prefWidth="86.0" promptText="Income" />
+            <JFXTextField fx:id="transactionAmountTF" layoutX="22.0" layoutY="85.0" prefHeight="25.0" prefWidth="168.0" promptText="Transaction Amount" />
+            <Label layoutX="14.0" layoutY="13.0" prefHeight="20.0" prefWidth="207.0" text="Transaction Information:" underline="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="clearTransactionTF" layoutX="439.0" layoutY="175.0" onAction="#clearTransactionInfoForm" style="-fx-border-color: #C0C0C0;" text="Clear Fields" />
+            <JFXTextField fx:id="transactionIDTF" layoutX="23.0" layoutY="45.0" prefHeight="23.0" prefWidth="96.0" promptText="Transaction ID" />
+            <DatePicker fx:id="transactionDatePicker" layoutX="202.0" layoutY="85.0" promptText="Transaction Date" />
+            <JFXRadioButton fx:id="purchaseRadioButton" layoutX="23.0" layoutY="131.0" text="Purchase">
+               <toggleGroup>
+                  <ToggleGroup fx:id="typeOfTransaction" />
+               </toggleGroup>
+            </JFXRadioButton>
+            <JFXRadioButton fx:id="rentRadioButton" layoutX="23.0" layoutY="168.0" text="Rent" toggleGroup="$typeOfTransaction" />
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Pane>
+      <DatePicker fx:id="totalIncomeToDatePicker" editable="false" layoutX="997.0" layoutY="99.0" />
+      <Label layoutX="997.0" layoutY="77.0" style="-fx-background-color: #ffffff;" text="Total Amount of Income as of" />
+      <Label layoutX="997.0" layoutY="133.0" style="-fx-background-color: #ffffff;" text="Is:" />
+      <JFXTextField fx:id="totalIncomeTF" editable="false" layoutX="997.0" layoutY="158.0" style="-fx-background-color: #ffffff;" />
+      <ImageView fitHeight="120.0" fitWidth="200.0" layoutX="575.0" layoutY="682.0">
+         <image>
+            <Image url="@../img/VideoShoppeLogo.jpg" />
+         </image>
+      </ImageView>
+      <JFXTextField fx:id="searchTableTF" layoutX="28.0" layoutY="265.0" onKeyReleased="#keySearchTable" promptText="Search Table" style="-fx-background-color: #FFFFFF;" />
+      <JFXButton fx:id="refreshTransactionButton" layoutX="1183.0" layoutY="264.0" onAction="#btnRefreshTableButton" style="-fx-background-color: #FFFFFF;" text="Refresh" />
+   </children>
+</AnchorPane>

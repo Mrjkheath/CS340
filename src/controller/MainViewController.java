@@ -51,18 +51,27 @@ public class MainViewController implements Initializable{
 	}
 
 	@FXML
-	void btnRentalsClicked(ActionEvent event) throws IOException {
+	void btnRentalsClicked(ActionEvent event) throws IOException
+	{
 		loadRentalMenu(event);
 	}
 
 	@FXML
-	void btnInventoryClicked(ActionEvent event) throws IOException {
+	void btnInventoryClicked(ActionEvent event) throws IOException
+	{
 		loadInventoryMenu(event);
 	}
 
 	@FXML
-	void btnManagement(ActionEvent event) throws IOException {
+	void btnManagement(ActionEvent event) throws IOException
+	{
 		loadManagerMenu(event);
+	}
+
+	@FXML
+	void btnAccounting(ActionEvent event) throws IOException
+	{
+		loadAccountingMenu(event);
 	}
 
 	@FXML
@@ -71,9 +80,9 @@ public class MainViewController implements Initializable{
 	}
 	  
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		
-		
+	public void initialize(URL location, ResourceBundle resources)
+	{
+
 	}
 	
 	@FXML 
@@ -97,6 +106,13 @@ public class MainViewController implements Initializable{
 	@FXML 
 	private void loadManagerMenu(ActionEvent event) throws IOException{
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("/view/ManagerView.fxml"));
+		rootPane.getChildren().setAll(pane);
+	}
+
+	@FXML
+	private void loadAccountingMenu(ActionEvent event) throws IOException
+	{
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("/view/AccountingView.fxml"));
 		rootPane.getChildren().setAll(pane);
 	}
 	
